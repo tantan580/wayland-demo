@@ -1,0 +1,17 @@
+{
+    "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
+    "files.associations": {
+        "display.h": "c",
+        "wayland-client.h": "c",
+        "window.h": "c",
+        "buffer.h": "c",
+        "os-compatibility.h": "c",
+        "zalloc.h": "c",
+        "mman.h": "c",
+        "types.h": "c",
+        "stdint.h": "c",
+        "mman-shared.h": "c",
+        "fcntl-linux.h": "c",
+        "condition_variable": "cpp"
+    }
+}
