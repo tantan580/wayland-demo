@@ -21,6 +21,7 @@ dir_wp_base = dep_wp.get_pkgconfig_variable('pkgdatadir')
 generated_protocols = [
 	[ 'xdg-shell', 'stable' ],
 	[ 'ivi-application', 'internal' ],
+	[ 'fullscreen-shell', 'v1' ],
 ]
 
 foreach proto: generated_protocols
