@@ -9,7 +9,7 @@
 //所以在开发Client程序时，需要去 add_listener，实现收到事件之后要做的工作
 static void signal_int(int signum)
 {
-    running = 0;
+    
 }
 
 int main(int argc, char *argv[])
@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
     int ret = 0;
 
     display = create_display();
-    window = create_window(display,250, 250);
+    window = create_window(display,250, 250, "simple-shm");
     if (!window)
         return 1;
     
@@ -35,7 +35,7 @@ int main(int argc, char *argv[])
     if (!window->wait_for_configure)
         redraw(window, NULL, 0);
     
-    while (running && ret != -1)
+    while (window->running && ret != -1)
         ret = wl_display_dispatch(display->display);
 
     fprintf(stderr, "simple-shm exiting\n");

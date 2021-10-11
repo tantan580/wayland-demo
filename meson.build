@@ -30,8 +30,27 @@ demo_srcs=[
 			fullscreen_shell_unstable_v1_client_protocol_h,
             fullscreen_shell_unstable_v1_protocol_c,
         ],
-        'dep_objs':[ dep_wayland_client]
-
+        'dep_objs':[ dep_wayland_client], 
+		'deps': [ 'egl', 'wayland-egl', 'glesv2', 'wayland-cursor' ]
+    },
+	{
+        'name':'egl',
+        'sources': [
+            'simple-egl.c',
+			'shared/os-compatibility.c',
+			'common/buffer.c',
+			'common/display.c',
+			'common/render.c',
+			'common/window.c',
+			'opengl/egl.c',
+			'opengl/opengl.c',
+            xdg_shell_client_protocol_h,
+			xdg_shell_protocol_c,
+			fullscreen_shell_unstable_v1_client_protocol_h,
+            fullscreen_shell_unstable_v1_protocol_c,
+        ],
+        'dep_objs':[ dep_wayland_client, dep_libm ],
+		'deps': [ 'egl', 'wayland-egl', 'glesv2', 'wayland-cursor' ]
     }
 ]
 

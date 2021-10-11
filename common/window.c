@@ -1,6 +1,6 @@
-#include "window.h"
-#include "display.h"
-#include "render.h"
+#include "common/window.h"
+#include "common/display.h"
+#include "common/render.h"
 #include "fullscreen-shell-unstable-v1-client-protocol.h"
 #include "xdg-shell-client-protocol.h"
 #include "shared/zalloc.h"
@@ -32,7 +32,8 @@ handle_xdg_toplevel_configure(void *data, struct xdg_toplevel *xdg_toplevel,
 
 static void handle_xdg_toplevel_close(void *data, struct xdg_toplevel *xdg_toplevel)
 {
-    running = 0;
+    struct window *window = data;
+    window->running = 0;
 }
 
 static const struct xdg_toplevel_listener xdg_toplevel_listener = {
@@ -40,7 +41,7 @@ static const struct xdg_toplevel_listener xdg_toplevel_listener = {
     .close = handle_xdg_toplevel_close,
 };
 
-struct window *create_window(struct display *display, int width, int height)
+struct window *create_window(struct display *display, int width, int height, const char *title)
 {
     struct window *window;
 
@@ -48,6 +49,7 @@ struct window *create_window(struct display *display, int width, int height)
     if (!window)
         return NULL;
     
+    window->running = 0;
     window->callback = NULL;
     window->display = display;
     window->width = width;
@@ -72,7 +74,7 @@ struct window *create_window(struct display *display, int width, int height)
         assert(window->xdg_toplevel);
         xdg_toplevel_add_listener(window->xdg_toplevel, &xdg_toplevel_listener, window);
 
-        xdg_toplevel_set_title(window->xdg_toplevel, "simple-shm");
+        xdg_toplevel_set_title(window->xdg_toplevel, title);
         wl_surface_commit(window->surface);
         window->wait_for_configure = true;
      } else if (display->fshell) {
